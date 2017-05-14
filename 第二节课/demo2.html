@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.0/css/bootstrap.min.css">
+    <style type="text/css">
+        .bs-example{
+            padding: 50px;
+        }
+        .bs-example table.table{
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .bs-example table.table caption{
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <div class="bs-example container" data-example-id="simple-table">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" v-model="user.firstName" class="form-control" id="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">First Name</label>
+                <input type="text" v-model="user.lastName" class="form-control" id="lastName">
+            </div>
+            <div class="form-group">
+                <label for="userName">User Name</label>
+                <input type="text" v-model="user.userName" class="form-control" id="userName">
+            </div>
+            <button type="button" @click="addUser" class="btn btn-default">Add to list</button>
+        </form>
+        <table class="table">
+            <caption>User list</caption>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="row" v-for="(user,index) in list">
+                <th scope="row">{{index+1}}</th>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.userName}}</td>
+                <td><button class="btn btn-danger" v-on:click="deleteUser(index)">Delete</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+       var vue = new Vue({
+           el: '#app',
+           data: {
+               user:[],
+               list: [
+                       {"firstName":"Mark","lastName":"Otto","userName":"mdo"},
+                       {"firstName":"Jacob","lastName":"Thornton","userName":"fat"},
+                       {"firstName":"Larry","lastName":"the Bird","userName":"twitter"}
+                     ]
+               },
+           methods: {
+               addUser:function () {
+                   this.list.push(this.user);
+                   this.user={}
+               },
+               deleteUser: function (index) {
+                   removed=document.querySelectorAll(".row")[0]
+                   this.list.splice(index,1)
+                   console.log(removed)
+               }
+           }
+       })
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        if(!Function.prototype.bind){
+            Function.prototype.bind = function (scope) {
+                var _this=this
+                return function () {
+                    _this.call(scope)
+                }
+
+            }
+        }
+        // Object.defineProperty() 这是一个静态方法
+        var model = {
+            name:"star",
+            message : "this is message",
+            isShow:true
+        }
+        Object.defineProperty(model,"name",{
+            //value:"star", //属性的值
+            //writable:true, //是否可写
+            enumerable:true, //是否可枚举
+            configurable:false, //是否以后还可以配置name属性
+            set:function (value) {
+                console.log("setter!!!")
+                this.value = value;
+            },
+            get:function () {
+                console.log("getter!!!")
+                return this.value;
+            }
+        })
+        //观察者 进行加工
+//        function observerFactory(model) {
+//            for(var property in model){
+//                model.__defineSetter__(property,function (value) {
+//                    console.log("已经进入了"+property+"属性的setter")
+//                    model.value = value  //当前对象的message属性的值 = 用户设置进来的Value
+//                }.bind(property))
+//                model.__defineGetter__(property,function () {
+//                    console.log("已经进入了"+property+"属性的getter")
+//                    return model.value
+//                }.bind(property)) //只要看到下划线开头的属性或者函数，代表的是隐私的意思
+//            }
+//        }
+//        observerFactory(model)
+//       model.message="msg"
+//        console.log(model)
+//        console.log(model.message)
+        //getter 获取一个对象的某个属性之前会回调这个属性的getter钩子函数
+        //setter 设置一个对象的某个属性之前会回调这个属性的getter钩子函数
+
+        //一个对象的任意属性在没有设置setter和getter钩子函数的时候，默认系统有实现
+    </script>
+</body>
+</html>

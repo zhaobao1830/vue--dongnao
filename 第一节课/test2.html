@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+</head>
+<body>
+<div id="app-2">
+      <input type="text" v-model="message">
+      <span :title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+      </span>
+      <p>{{message}}</p>
+      <p id="seen" v-if="seenn">Now you see me</p>
+</div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+    var seen=document.getElementById("seen");
+    console.log(seen)
+    var data = {
+        message: 'tttt',
+        seenn: false
+    }
+    var app2 = new Vue({
+        el: '#app-2',
+        data:data
+    })
+    setTimeout(function () {
+        data.message = "update tttt"
+    },5000)
+    console.log(seen)
+    document.body.appendChild(seen)
+</script>
+</body>
+</html>

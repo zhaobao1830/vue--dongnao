@@ -1,0 +1,3 @@
+第一节课，获得的知识点
+new Vue把template（最开始页面显示的dom结构）的dom转换成了虚拟dom，经过new Vue以后，下面的操作都是在虚拟dom里面，操作完成后，用虚拟dom替换template
+dom

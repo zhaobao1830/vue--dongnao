@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+        <br/>
+        <p>{{ pData }}</p>
+        <h1>{{ pData }}</h1>
+    </div>
+    <script type="text/javascript" src="js/MyVue.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el:"#app",
+            data:{
+                message: 'Hello Vue!',
+                pData: 'this is p data'
+            }
+        })
+
+//        window.onload = function () {
+//            vue-dongnao("#app",{
+//                message: 'Hello Vue!',
+//                pData: 'this is p data'
+//            })
+//        }
+//        function vue-dongnao(id,data) {
+//            var context=document.querySelector(id); //通过id找到上下文
+//            var html = context.innerHTML;
+//            var regex = /(\{\{\s*([\w]+)\s*\}\})/g;
+//             while (regex.exec(html)){
+//                 console.log("ttt")
+//                 html = html.replace(new RegExp(RegExp.$1,"g"),data[RegExp.$2])
+//             }
+//            context.innerHTML = html;
+//        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>第2课：vue双向数据绑定</title>
+    <style>
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <h2 v-if="sex===0">男</h2>
+        <h2 v-else>女</h2>
+        <h3>{{desc}}</h3>
+        <ul>
+            <li v-for="(item,index) in has">
+                {{index}}=>{{item}}
+            </li>
+        </ul>
+        <button v-on:click="changeSex($event,'你悲催了')">加工</button>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        var vue=new Vue({
+            el:"#app",
+            data: {
+                name:"zb",
+                sex:0,
+                desc:"哇哈哈",
+                has:['车',"房"]
+            },
+            methods: {
+                changeSex: function (event,str) {
+                    console.log(arguments)
+                    console.log(event)
+                    this.sex=1
+                }
+            }
+        })
+    </script>
+</body>
+</html>

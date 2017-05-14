@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        if(!Function.prototype.bind){
+            Function.prototype.bind = function (scope) {
+                var _this=this
+                return function () {
+                    _this.call(scope)
+                }
+
+            }
+        }
+        // Object.defineProperty() 这是一个静态方法
+        var model = {
+            name:"star",
+            user:{name:'hello',sex:'1',child:{"name":"son","sex":"1"}},
+            message : "this is message",
+            isShow:true
+        }
+        function observerFactory(model) {
+            for(var property in model){
+                addObserver(model,property,model[property])
+                console.log(model[property])
+                console.log(model[property] instanceof Object)
+                if(model[property] instanceof Object){
+                    console.log("tttt")
+                    observerFactory(model[property])  //递归
+                }
+            }
+        }
+        function addObserver(model,property,value) {
+            Object.defineProperty(model,property,{
+                //value:"star", //属性的值
+                //writable:true, //是否可写
+                enumerable:true, //是否可枚举
+                configurable:false, //是否以后还可以配置name属性
+                set:function (nvalue) {
+                    console.log("setter!!!")
+                    value = nvalue;
+                    notify(model,property,value)
+                },
+                get:function () {
+                    console.log("getter!!!")
+                    return value;
+                }
+            })
+        }
+        function notify(obj,key,value) {
+            console.log(obj)
+            console.log("的"+key+"属性发生了改变，改变后的结果是"+value)
+        }
+        observerFactory(model)
+        model.name="s"
+        model.user.name="ss"
+        model.user.child.name="ssss"
+    </script>
+</body>
+</html>

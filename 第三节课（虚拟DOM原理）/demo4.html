@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <h2>{{message}}</h2>
+        <h3 v-if="isShow">{{showText}}</h3>
+        <div>
+            重新加载一下title数据
+            <p>
+                {{ title }}
+            </p>
+        </div>
+    </div>
+    <script>
+        // Object.defineProperty() 这是一个静态方法
+        var model = {
+            title:'this is title',
+            name:"star",
+            user:{name:'hello',sex:'1',child:{"name":"son","sex":"1"}},
+            message : "this is message",
+            showText : "你有时候看不到这个东西",
+            isShow:true
+        }
+        function observerFactory(model) {
+            for(var property in model){
+                addObserver(model,property,model[property])
+                if(model[property] instanceof Object){
+                    observerFactory(model[property])  //递归
+                }
+            }
+        }
+        function addObserver(model,property,value) {
+            Object.defineProperty(model,property,{
+                //value:"star", //属性的值
+                //writable:true, //是否可写
+                enumerable:true, //是否可枚举
+                configurable:false, //是否以后还可以配置name属性
+                set:function (nvalue) {
+                    value = nvalue;
+                    notify(model,property,value)
+                },
+                get:function () {
+                    return value;
+                }
+            })
+        }
+        function notify(obj,key,value) {
+            if(!bind[key])return;
+           // console.log("的"+key+"属性发生了改变，改变后的结果是"+value)
+            bind[key].forEach(function (node) {
+                if(node.cmdType==='text') {
+                    node.data = value
+                }else if(node.cmdType==='if'){
+                    if(!value){
+                        node.next = node.nextElementSibling
+                        node.remove()
+                    }else{
+                        if(node.next){
+                            node.ref.parentNode.ref.insertBefore(node,node.next)
+                        }else{
+                            node.ref.parentNode.ref.appendChild(node)
+                        }
+                    }
+                }else if(node.cmdType==='show'){
+                    if(!value){
+                        node.style.display="none"
+                    }else{
+                        node.style.display="block"
+                    }
+                }
+            })
+        }
+        observerFactory(model)
+        var bind = {}
+        function mvvm(node) {
+            var clone=node.cloneNode(false)  //复制节点，true代表深度克隆.false代表只克隆当前node
+            node.ref = clone //让克隆对象和模板对象的Node发生关系
+            clone.ref = node
+            for(var i =0;i<node.childNodes.length;i++){
+                clone.appendChild(mvvm(node.childNodes[i]))
+            }
+            switch (node.nodeType){
+                case 1:
+                    parseElement(node) //解析元素指令
+                case 3:
+                    if(/\{\{\s*(\w+)\s*\}\}/.exec(node.data)){
+                        bind[RegExp.$1] = bind[RegExp.$1]||[]
+                        bind[RegExp.$1].push(node.ref)
+                       node.ref.cmdType = 'text'
+                    }
+                break;
+                default:
+            }
+            return clone
+        }
+        function parseElement(element) {
+
+        }
+        function init(){
+            for(var prop in model){
+                model[prop] = model[prop]
+            }
+        }
+        var app = document.getElementById("app")
+        app.remove()
+        var clone=mvvm(app) //双向数据绑定
+        //render()
+        init()// 渲染
+        document.body.appendChild(clone)
+    </script>
+</body>
+</html>

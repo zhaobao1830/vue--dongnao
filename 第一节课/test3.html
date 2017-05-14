@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+</head>
+<body>
+   <div id="app-4">
+       <ol id="ol">
+           <li v-for="todo in todos">
+               {{todo.text}}
+           </li>
+       </ol>
+   </div>
+   <script type="text/javascript" src="js/vue.js"></script>
+   <script type="text/javascript">
+//       var first=ol.children[0]
+       var olF=document.getElementById("ol");
+       var data={todos: [
+           {text: "learen javascript"},
+           {text: "learen Vue"},
+           {text: "learen qita"}
+       ]}
+       var app4 = new Vue({
+           el: "#app-4",
+           data: data
+       })
+       var ol=document.getElementById("ol");
+       var childs = ol.children
+       console.log(childs)
+       console.log(childs.length)  //3
+       var first = childs[0] //learen javascript
+       console.log(first)
+       var second = childs[1]
+       var last = childs[childs.length-1]
+       setTimeout(function () {
+          // data.todos.push({text:"learen java"}
+           data.todos.splice(0,1)
+           console.log(document.getElementById("ol")===ol)
+           setTimeout(function () {
+               console.log(childs[0]) //learen vue-dongnao
+               console.log(first) //learen vue-dongnao
+               console.log("ss:"+(childs[0]===first)) // true
+               console.log("tt:"+(childs[0]===second)) //false
+               console.log(childs[1]) //learen qita
+             // console.log(childs.length)
+               console.log(childs[0]===last)
+           },1000)
+
+       },5000)
+//       console.log(document.getElementById("ol").children[0]===first)
+   </script>
+</body>
+</html>
+
+
+因为vue作者认为，你改变一个已经在内存中存在的dom的属性的性能远远大于重新创建一个新的dom
+
+ol li缓冲区域 0
+for(var todo in model.todos){
+//第一次发现缓存区域没有
+//从template中的li中clone一个
+todo.text
+//加到缓存中去
+}
+ol li缓冲区域 3
+
+2秒钟之后 改变 model 3 2
+for(var todo in model.todos){
+//从缓存区中拿到第一个元素
+//改变text
+}
+
+两种状态   在dom上    不在dom上（缓存） 游离状态

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Vue Hello World【动脑学院】</title>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+        <br/>
+        <p>{{ pData }}</p>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',  //选择器用来标识vue所管理的上下文作用域
+            data: {
+                message: 'Hello Vue!',
+                pData: 'this is p data'
+            }
+        })
+    </script>
+</body>
+</html>
