@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>官网自己练习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+   <div id="app">
+     <!--<input v-model="message" placeholder="edit me">-->
+     <!--<p>Message is:{{message}}</p>-->
+     <!--<span>Multiline message is:</span>-->
+     <!--<p style="white-space: pre">{{message}}</p>-->
+     <!--<br>-->
+     <!--<textarea v-model="message" placeholder="add message"></textarea>-->
+     <!--单选按钮-->
+     <!--<input type="checkbox" id="checkbox" v-model="checked">-->
+     <!--<label for="checkbox">{{checked}}</label>-->
+     <!--多选框  -->
+       <!--<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">-->
+       <!--<label for="jack">Jack</label>-->
+       <!--<input type="checkbox" id="john" value="John" v-model="checkedNames">-->
+       <!--<label for="john">John</label>-->
+       <!--<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">-->
+       <!--<label for="mike">Mike</label>-->
+       <!--<br>-->
+       <!--<span>Checked names: {{ checkedNames }}</span>-->
+       <!--单选按钮-->
+       <!--<input type="text" value="woshi" v-model="wwwww">-->
+       <!--<div id="example-4" class="demo">-->
+           <!--<input type="radio" id="one" value="One" v-model="picked">-->
+           <!--<label for="one">One</label>-->
+           <!--<br>-->
+           <!--<input type="radio" id="two" value="Two" v-model="picked">-->
+           <!--<label for="two">Two</label>-->
+           <!--<hr>-->
+           <!--<span>Picked: {{ picked }}</span>-->
+       <!--</div>-->
+       <!--单选列表-->
+       <!--<div id="example-5" class="demo">-->
+           <!--<select v-model="selectedOne">-->
+               <!--<option>A</option>-->
+               <!--<option>B</option>-->
+               <!--<option>C</option>-->
+           <!--</select>-->
+           <!--<span>Selected: {{selectedOne}}</span>-->
+       <!--</div>-->
+       <!--多选列表-->
+       <!--<div id="example-6" class="demo">-->
+           <!--<select v-model="selectedList" multiple="multiple">-->
+             <!--<option>A</option>-->
+             <!--<option>B</option>-->
+             <!--<option>C</option>-->
+           <!--</select>-->
+           <!--<span>Selected: {{selectedList}}</span>-->
+       <!--</div>-->
+       <!--动态选项-->
+       <!--<select v-model="selectedForList">-->
+           <!--<option v-for="option in options" :value="option.value">-->
+             <!--{{ option.text }}-->
+           <!--</option>-->
+       <!--</select>-->
+       <!--<span>selectedForList: {{selectedForList}}</span>-->
+       <input
+               type="checkbox"
+               v-model="toggle"
+               :true-value="a"
+               :false-value="b">
+       <p>{{toggle}}</p>
+   </div>
+   <script src="js/vue.js"></script>
+   <script>
+       var vue = new Vue({
+         el: "#app",
+         data: {
+           message:"",
+           checked: false,
+           checkedNames:[],
+           picked:'',
+           wwwww:'',
+           selectedOne:'',
+           selectedList:[],
+           selectedFor:'A',
+           options: [
+             { 'text': 'one', 'value': 'A'},
+             { 'text': 'two', 'value': 'B'},
+             { 'text': 'three', 'value': 'C'}
+           ],
+           selectedForList: [],
+           a: 'a',
+           b: 'b',
+           toggle:''
+         }
+       })
+   </script>
+</body>
+</html>
